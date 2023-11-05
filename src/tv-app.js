@@ -29,8 +29,26 @@ export class TvApp extends LitElement {
     return [
       css`
       :host {
-        display: block;
+       display: block;
         margin: 16px;
+        padding: 16px;
+      
+       
+
+      }
+
+      .course-container{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 16px;
+        background-color: #f5f5f5;
+      }
+
+      .course-topic {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
         padding: 16px;
       }
       `
@@ -39,16 +57,22 @@ export class TvApp extends LitElement {
   // LitElement rendering template of your element
   render() {
     return html`
+    <div class = "course-container">
+
+  
       <h2>${this.name}</h2>
       ${
         this.listings.map(
           (item) => html`
+            <div class = "course-topic">
             <tv-channel 
               title="${item.title}"
               presenter="${item.metadata.author}"
               @click="${this.itemClick}"
             >
             </tv-channel>
+            </div>
+            </div>
           `
         )
       }
