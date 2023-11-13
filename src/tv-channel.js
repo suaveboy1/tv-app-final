@@ -7,6 +7,7 @@ export class TvChannel extends LitElement {
     super();
     this.title = '';
     this.presenter = '';
+    this.id = '';
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -17,6 +18,7 @@ export class TvChannel extends LitElement {
     return {
       title: { type: String },
       presenter: { type: String },
+      id: { type: String },
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -35,8 +37,9 @@ export class TvChannel extends LitElement {
   render() {
     return html`
       <div class="wrapper">
+        <h3>${this.id}</h3>
         <h3>${this.title}</h3>
-        <h4>${this.presenter}</h4>
+        <!-- <h4>${this.presenter}</h4> -->
         <slot></slot>
       </div>  
       `;

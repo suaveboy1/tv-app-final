@@ -68,6 +68,7 @@ export class TvApp extends LitElement {
             <tv-channel 
               title="${item.title}"
               presenter="${item.metadata.author}"
+              id="${item.id}"
               @click="${this.itemClick}"
             >
             </tv-channel>

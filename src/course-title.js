@@ -1,5 +1,10 @@
 // import stuff
 import { LitElement, html, css } from "lit";
+import "@shoelace-style/shoelace/dist/shoelace.js";
+
+
+
+
 
 export class CourseTitle extends LitElement {
   // defaults
@@ -7,6 +12,7 @@ export class CourseTitle extends LitElement {
     super();
     this.title = "";
     this.presenter = "";
+    this.id = "";
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -17,6 +23,7 @@ export class CourseTitle extends LitElement {
     return {
       title: { type: String },
       presenter: { type: String },
+      id: { type: String },
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -73,6 +80,9 @@ export class CourseTitle extends LitElement {
         color: #5a5e61;
         text-decoration: none;
       }
+      .stopwatch{
+       
+      }
     `;
   }
   // LitElement rendering template of your element
@@ -90,7 +100,10 @@ export class CourseTitle extends LitElement {
             >From Web Component to Lit Element</a
           >
         </h1>
+    
+        <sl-icon class="stopwatch" style="margin-right:3px; font-size:20px; " name="stopwatch"></sl-icon>
         <div class="codelab-time-container">
+
           <div
             class="time-remaining"
             tabindex="0"
@@ -100,64 +113,44 @@ export class CourseTitle extends LitElement {
             40 mins remaining
           </div>
         </div>
-        <devsite-language-selector
-          aria-label="Select your language preference."
-        >
-          <ul role="presentation">
-            <li role="presentation">
-              <a
-                role="menuitem"
-                lang="en"
-                aria-current="true"
-                href="https://codelabs.developers.google.com/codelabs/the-lit-path#2"
-                >English</a
-              >
-            </li>
-          </ul> </devsite-language-selector
-        ><devsite-user
-          signed-in=""
-          enable-profiles=""
-          fp-auth=""
-          sign-in-url="https://codelabs.developers.google.com/_d/signin?continue=https%3A%2F%2Fcodelabs.developers.google.com%2Fcodelabs%2Fthe-lit-path%3Fhl%3Den%232&amp;prompt=select_account"
-          sign-out-url="https://codelabs.developers.google.com/_d/signout?continue=https%3A%2F%2Fcodelabs.developers.google.com%2Fcodelabs%2Fthe-lit-path%3Fhl%3Den%232"
-          url="https://codelabs.developers.google.com/_d/signin?continue=https%3A%2F%2Fcodelabs.developers.google.com%2Fcodelabs%2Fthe-lit-path%3Fhl%3Den%232&amp;prompt=select_account"
-          ><div class="ogb-wrapper ogb-si">
-            <div class="gb_Na gb_f gb_eb" id="gb">
-              <div
-                class="gb_yd gb_cb gb_nd"
-                ng-non-bindable=""
-                data-ogsr-up=""
-                style="padding:0;height:auto;display:block"
-              >
-                <div class="gb_Sd" style="display:block">
-                  <div class="gb_4c"></div>
-                  <div class="gb_b gb_v gb_Zf gb_H">
-                    <div class="gb_g gb_bb gb_Zf gb_H">
-                      <a
-                        class="gb_d gb_Da gb_H devsite-top-button button"
-                        aria-label="Google Account: Oj Akanbi  
-(oakanbi13@gmail.com)"
-                        href="https://accounts.google.com/SignOutOptions?hl=en&amp;continue=https://codelabs.developers.google.com/_d/profile/ogb%3Fhl%3Den&amp;ec=GBRAywI"
-                        role="button"
-                        tabindex="0"
-                        id="devsite-signin-btn"
-                        ><img
-                          class="gb_n gbii"
-                          src="https://lh3.googleusercontent.com/ogw/AKPQZvzoUf_x8dNI-Nv_q2cF1O1_ZPavIMJqxzFvCMkRKg=s32-c-mo"
-                          srcset="
-                            https://lh3.googleusercontent.com/ogw/AKPQZvzoUf_x8dNI-Nv_q2cF1O1_ZPavIMJqxzFvCMkRKg=s32-c-mo 1x,
-                            https://lh3.googleusercontent.com/ogw/AKPQZvzoUf_x8dNI-Nv_q2cF1O1_ZPavIMJqxzFvCMkRKg=s64-c-mo 2x
-                          "
-                          alt=""
-                          aria-hidden="true"
-                          data-noaft=""
-                      /></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div></div
-        ></devsite-user>
+
+     
+       <div style= "margin:15px">
+        <sl-dropdown>
+          
+  <sl-button slot="trigger" caret>English</sl-button>
+  <sl-menu>
+    <sl-menu-item>English</sl-menu-item>
+    <sl-menu-item>Deutsch</sl-menu-item>
+    <sl-menu-item>Español</sl-menu-item>
+    <sl-menu-item>Français</sl-menu-item>
+    <sl-menu-item>Indonesia</sl-menu-item>
+    <sl-menu-item>Portuguès</sl-menu-item>
+  
+  </sl-menu>
+</sl-dropdown>
+</div>
+
+
+
+    
+<div class="">
+  <div class="" id="gb">
+    <div class="" ng-non-bindable="" data-ogsr-up="" style="padding:0;height:auto;display:block">
+      <div class="" style="display:block">
+        <div class=""></div>
+        <div class="">
+          <div class="">
+            <a class="" aria-label="Google Account: Oj Akanbi (oakanbi13@gmail.com)" href="https://accounts.google.com/SignOutOptions?hl=en&amp;continue=https://codelabs.developers.google.com/_d/profile/ogb%3Fhl%3Den&amp;ec=GBRAywI" role="button" tabindex="0" id="devsite-signin-btn">
+              <img class="" style = "border-radius: 33px" href ="https://lh3.googleusercontent.com/ogw/AKPQZvzoUf_x8dNI-Nv_q2cF1O1_ZPavIMJqxzFvCMkRKg=s32-c-mo" srcset="https://lh3.googleusercontent.com/ogw/AKPQZvzoUf_x8dNI-Nv_q2cF1O1_ZPavIMJqxzFvCMkRKg=s32-c-mo 1x, https://lh3.googleusercontent.com/ogw/AKPQZvzoUf_x8dNI-Nv_q2cF1O1_ZPavIMJqxzFvCMkRKg=s64-c-mo 2x" alt="" aria-hidden="true" data-noaft="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
     `;
   }
