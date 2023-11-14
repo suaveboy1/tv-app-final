@@ -37,20 +37,20 @@ export class TvApp extends LitElement {
 
       }
 
-      .course-container{
+      /* .course-container{
         display: flex;
         flex-direction: column;
         flex: 1;
         padding: 16px;
         background-color: #f5f5f5;
-      }
+      } */
 
-      .course-topic {
+      /* .course-topic {
         display: flex;
         flex-direction: row;
         flex: 1;
         padding: 16px;
-      }
+      } */
       `
     ];
   }
@@ -64,6 +64,7 @@ export class TvApp extends LitElement {
       ${
         this.listings.map(
           (item) => html`
+      <!-- think about addig map indexxx -->
             <div class = "course-topic">
             <tv-channel 
               title="${item.title}"
