@@ -3,6 +3,7 @@ import { LitElement, html, css } from 'lit';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import "./tv-channel.js";
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 export class TvApp extends LitElement {
   // defaults
@@ -11,7 +12,26 @@ export class TvApp extends LitElement {
     this.name = '';
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
+    this.id = '';
+    this.contents = Array(9).fill('');
+    this.currentPage = 0;
+    this.selectedCourse = null;
+    this.activeIndex = null; // To keep track of the active index
+    this.activeContent = ''; // To store the active content HTML
+    this.itemClick = this.itemClick.bind(this);
+
+
+
   }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.contents.forEach((_, index) => {
+      this.loadContent(index);
+    });
+  }
+  
   // convention I enjoy using to define the tag's name
   static get tag() {
     return 'tv-app';
@@ -22,6 +42,12 @@ export class TvApp extends LitElement {
       name: { type: String },
       source: { type: String },
       listings: { type: Array },
+      selectedCourse: { type: Object },
+      currentPage: { type: Number },
+      contents: { type: Array },
+      id: { type: String },
+      activeIndex: { type: Number },
+      activeContent: { type: String }
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -29,58 +55,54 @@ export class TvApp extends LitElement {
     return [
       css`
       :host {
-       display: block;
-        margin: 16px;
-        padding: 16px;
-      
-       
-
+        display: block;
+        padding-left: 10px;
+        padding-top: 30px;
       }
 
-      /* .course-container{
+      .course-topics{
         display: flex;
         flex-direction: column;
-        flex: 1;
-        padding: 16px;
-        background-color: #f5f5f5;
-      } */
+        width: 275px;
+        max-height: 485px;
+        overflow: auto;
+        padding-top: 10px;
+        padding-right: 5px;
 
-      /* .course-topic {
-        display: flex;
-        flex-direction: row;
-        flex: 1;
-        padding: 16px;
-      } */
+      }
+      @media (min-width){
+        /* .course-topics{
+          width: 20%;
+        } */
+      }
       `
     ];
   }
   // LitElement rendering template of your element
   render() {
     return html`
-    <div class = "course-container">
-
-  
       <h2>${this.name}</h2>
+      <div class='course-topics'>
       ${
+        // console.log("Listings", this.listings),
         this.listings.map(
-          (item) => html`
-      <!-- think about addig map indexxx -->
-            <div class = "course-topic">
+          (item, index) => html`
             <tv-channel 
               title="${item.title}"
               presenter="${item.metadata.author}"
-              id="${item.id}"
-              @click="${this.itemClick}"
+              id='${item.id}'
+              @click="${() => this.itemClick(index) }" 
+            
+             
             >
             </tv-channel>
-            </div>
-            </div>
           `
+         
         )
       }
+      </div>
       <div>
-        <!-- video -->
-        <!-- discord / chat - optional -->
+      ${this.activeContent ? unsafeHTML(this.activeContent) : html``}
       </div>
       <!-- dialog -->
       <sl-dialog label="Dialog" class="dialog">
@@ -95,10 +117,27 @@ export class TvApp extends LitElement {
     dialog.hide();
   }
 
-  itemClick(e) {
-    console.log(e.target);
-    const dialog = this.shadowRoot.querySelector('.dialog');
-    dialog.show();
+  async itemClick(index) {
+    this.activeIndex = index;
+    const item = this.listings[index].location; 
+    console.log("Active Content", item);
+
+    const contentPath = '/assets/' + item;
+    console.log("Content Path", contentPath);
+
+    try {
+      const response = await fetch(contentPath);
+      const text = await response.text();
+      this.activeContent = text;
+      console.log("Active Content", this.activeContent);
+    }
+    catch (err) {
+      console.log('fetch failed', err);
+    }
+
+   
+    // const dialog = this.shadowRoot.querySelector('.dialog');
+    // dialog.show();
   }
 
   // LitElement life cycle for when any property changes
