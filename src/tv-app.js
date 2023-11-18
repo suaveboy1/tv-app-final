@@ -102,13 +102,17 @@ export class TvApp extends LitElement {
       }
       </div>
       <div>
+       <button @click=${() => this.prevPage() } >PREV</button>
+        <button   @click=${() => this.nextPage() }>NEXT</button>
+       
+
+      </div>
+      <div>
       ${this.activeContent ? unsafeHTML(this.activeContent) : html``}
       </div>
       <!-- dialog -->
-      <sl-dialog label="Dialog" class="dialog">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
-      </sl-dialog>
+   
+     
     `;
   }
 
@@ -117,6 +121,44 @@ export class TvApp extends LitElement {
     dialog.hide();
   }
 
+  async nextPage() {
+    if (this.activeIndex !== null) {
+      const nextIndex = (this.activeIndex + 1) % this.listings.length;
+      const item = this.listings[nextIndex].location;
+  
+      const contentPath = '/assets/' + item;
+  
+      try {
+        const response = await fetch(contentPath);
+        this.activeContent = await response.text();
+        console.log("Active Content", this.activeContent);
+        this.activeIndex = nextIndex; // Update the active index after fetching content
+      } catch (err) {
+        console.log('fetch failed', err);
+      }
+    }
+  }
+
+  async prevPage() {
+    if (this.activeIndex !== null) {
+      const prevIndex = this.activeIndex === 0 ? this.listings.length - 1 : this.activeIndex - 1;
+      const item = this.listings[prevIndex].location;
+  
+      const contentPath = '/assets/' + item;
+  
+      try {
+        const response = await fetch(contentPath);
+        this.activeContent = await response.text();
+        console.log("Active Content", this.activeContent);
+        this.activeIndex = prevIndex; // Update the active index after fetching content
+      } catch (err) {
+        console.log('fetch failed', err);
+      }
+    }
+  }
+  
+  
+  
   async itemClick(index) {
     this.activeIndex = index;
     const item = this.listings[index].location; 
