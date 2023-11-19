@@ -31,10 +31,12 @@ export class CourseTitle extends LitElement {
     return css`
       :host {
         display: inline-flex;
+       
       }
       .wrapper {
         padding: 16px;
         background-color: #eeeeee;
+      
       }
 
       #codelab-title {
@@ -54,6 +56,7 @@ export class CourseTitle extends LitElement {
         top: 0;
         left: 0;
         right: 0;
+        
       }
 
       .title {

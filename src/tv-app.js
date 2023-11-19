@@ -1,27 +1,24 @@
 // import stuff
-import { LitElement, html, css } from 'lit';
-import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
-import '@shoelace-style/shoelace/dist/components/button/button.js';
+import { LitElement, html, css } from "lit";
+import "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
+import "@shoelace-style/shoelace/dist/components/button/button.js";
 import "./tv-channel.js";
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
 export class TvApp extends LitElement {
   // defaults
   constructor() {
     super();
-    this.name = '';
-    this.source = new URL('../assets/channels.json', import.meta.url).href;
+    this.name = "";
+    this.source = new URL("../assets/channels.json", import.meta.url).href;
     this.listings = [];
-    this.id = '';
-    this.contents = Array(9).fill('');
+    this.id = "";
+    this.contents = Array(9).fill("");
     this.currentPage = 0;
     this.selectedCourse = null;
     this.activeIndex = null; // To keep track of the active index
-    this.activeContent = ''; // To store the active content HTML
+    this.activeContent = ""; // To store the active content HTML
     this.itemClick = this.itemClick.bind(this);
-
-
-
   }
 
   connectedCallback() {
@@ -31,10 +28,10 @@ export class TvApp extends LitElement {
       this.loadContent(index);
     });
   }
-  
+
   // convention I enjoy using to define the tag's name
   static get tag() {
-    return 'tv-app';
+    return "tv-app";
   }
   // LitElement convention so we update render() when values change
   static get properties() {
@@ -47,77 +44,99 @@ export class TvApp extends LitElement {
       contents: { type: Array },
       id: { type: String },
       activeIndex: { type: Number },
-      activeContent: { type: String }
+      activeContent: { type: String },
     };
   }
   // LitElement convention for applying styles JUST to our element
   static get styles() {
     return [
       css`
-      :host {
-        display: block;
-        padding-left: 10px;
-        padding-top: 30px;
-      }
+        :host {
+          display: block;
+          margin: 16px;
+          padding: 16px;
+        }
+        .course-topics {
+          display: flex;
+    flex-direction: column;
+    width: 275px;
+    max-height: 485px;
+    margin-right: 1px;
+    margin-top: 40px;
+    overflow: auto;
+    padding-top: 10px;
+    padding-right: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 0px 5px;
+}
 
-      .course-topics{
-        display: flex;
-        flex-direction: column;
-        width: 275px;
-        max-height: 485px;
-        overflow: auto;
-        padding-top: 10px;
-        padding-right: 5px;
+        .main {
+          padding: 16px;
+       
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to the right */
+          background-color: #f8f9fa; /* Keep the same background color */
 
-      }
-      @media (min-width){
-        /* .course-topics{
-          width: 20%;
-        } */
-      }
-      `
+          font-size: 1.3em;
+       
+          width: 100%;
+          margin-bottom: 10px;
+          position: relative;
+          margin-top: 40px;
+          margin-left: 15px;
+
+          --devsite-code-font-family: Roboto Mono, monospace;
+          --devsite-primary-font-family: Roboto, Noto Sans, Noto Sans JP,
+            Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew,
+            Noto Sans Bengali, sans-serif;
+          --devsite-h3-margin: 32px 0 16px;
+          --devsite-h4-font: 500 16px/24px var(--devsite-primary-font-family);
+          /* ... (rest of the styles) ... */
+
+          /* Example usage of some properties */
+          font: 400 16px/24px var(--devsite-primary-font-family);
+          -webkit-font-smoothing: antialiased;
+          text-size-adjust: 100%;
+          color: #4e5256;
+          font-family: var(--devsite-primary-font-family);
+          background: #f8f9fa;
+        }
+
+        .alignContent {
+          display: flex;
+          justify-content: space-between;
+        }
+      `,
     ];
   }
-  // LitElement rendering template of your element
+
   render() {
     return html`
-      <h2>${this.name}</h2>
-      <div class='course-topics'>
-      ${
-        // console.log("Listings", this.listings),
-        this.listings.map(
-          (item, index) => html`
-            <tv-channel 
-              title="${item.title}"
-              presenter="${item.metadata.author}"
-              id='${item.id}'
-              @click="${() => this.itemClick(index) }" 
-            
-             
-            >
-            </tv-channel>
-          `
-         
-        )
-      }
-      </div>
-      <div>
-       <button @click=${() => this.prevPage() } >PREV</button>
-        <button   @click=${() => this.nextPage() }>NEXT</button>
-       
+      <div class="alignContent">
+        <div class="course-topics">
+          ${this.listings.map(
+            (item, index) => html`
+              <tv-channel
+                title="${item.title}"
+                presenter="${item.metadata.author}"
+                id="${item.id}"
+                @click="${() => this.itemClick(index)}"
+              >
+              </tv-channel>
+            `,
+          )}
+        </div>
 
+        <div class="main">
+          ${this.activeContent ? unsafeHTML(this.activeContent) : html``}
+          <div>
+            <button @click=${() => this.prevPage()}>PREV</button>
+            <button @click=${() => this.nextPage()}>NEXT</button>
+          </div>
+        </div>
       </div>
-      <div>
-      ${this.activeContent ? unsafeHTML(this.activeContent) : html``}
-      </div>
-      <!-- dialog -->
-   
-     
     `;
   }
-
   closeDialog(e) {
-    const dialog = this.shadowRoot.querySelector('.dialog');
+    const dialog = this.shadowRoot.querySelector(".dialog");
     dialog.hide();
   }
 
@@ -125,46 +144,47 @@ export class TvApp extends LitElement {
     if (this.activeIndex !== null) {
       const nextIndex = (this.activeIndex + 1) % this.listings.length;
       const item = this.listings[nextIndex].location;
-  
-      const contentPath = '/assets/' + item;
-  
+
+      const contentPath = "/assets/" + item;
+
       try {
         const response = await fetch(contentPath);
         this.activeContent = await response.text();
         console.log("Active Content", this.activeContent);
         this.activeIndex = nextIndex; // Update the active index after fetching content
       } catch (err) {
-        console.log('fetch failed', err);
+        console.log("fetch failed", err);
       }
     }
   }
 
   async prevPage() {
     if (this.activeIndex !== null) {
-      const prevIndex = this.activeIndex === 0 ? this.listings.length - 1 : this.activeIndex - 1;
+      const prevIndex =
+        this.activeIndex === 0
+          ? this.listings.length - 1
+          : this.activeIndex - 1;
       const item = this.listings[prevIndex].location;
-  
-      const contentPath = '/assets/' + item;
-  
+
+      const contentPath = "/assets/" + item;
+
       try {
         const response = await fetch(contentPath);
         this.activeContent = await response.text();
         console.log("Active Content", this.activeContent);
         this.activeIndex = prevIndex; // Update the active index after fetching content
       } catch (err) {
-        console.log('fetch failed', err);
+        console.log("fetch failed", err);
       }
     }
   }
-  
-  
-  
+
   async itemClick(index) {
     this.activeIndex = index;
-    const item = this.listings[index].location; 
+    const item = this.listings[index].location;
     console.log("Active Content", item);
 
-    const contentPath = '/assets/' + item;
+    const contentPath = "/assets/" + item;
     console.log("Content Path", contentPath);
 
     try {
@@ -172,12 +192,10 @@ export class TvApp extends LitElement {
       const text = await response.text();
       this.activeContent = text;
       console.log("Active Content", this.activeContent);
-    }
-    catch (err) {
-      console.log('fetch failed', err);
+    } catch (err) {
+      console.log("fetch failed", err);
     }
 
-   
     // const dialog = this.shadowRoot.querySelector('.dialog');
     // dialog.show();
   }
@@ -195,11 +213,17 @@ export class TvApp extends LitElement {
   }
 
   async updateSourceData(source) {
-    await fetch(source).then((resp) => resp.ok ? resp.json() : []).then((responseData) => {
-      if (responseData.status === 200 && responseData.data.items && responseData.data.items.length > 0) {
-        this.listings = [...responseData.data.items];
-      }
-    });
+    await fetch(source)
+      .then((resp) => (resp.ok ? resp.json() : []))
+      .then((responseData) => {
+        if (
+          responseData.status === 200 &&
+          responseData.data.items &&
+          responseData.data.items.length > 0
+        ) {
+          this.listings = [...responseData.data.items];
+        }
+      });
   }
 }
 // tell the browser about our tag and class it should run when it sees it

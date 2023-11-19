@@ -28,7 +28,7 @@ export class TvChannel extends LitElement {
         display: inline-flex;
       }
       .wrapper {
-        background-color: #eeeeee;
+        /* background-color: #eeeeee;
         width: 100%;
         margin-bottom: 8px;
         border-radius: 10px;
@@ -38,11 +38,40 @@ export class TvChannel extends LitElement {
         margin-top: 3px;
         height: 50px;
         display: flex;
-        align-items: center;
+        align-items: center; */
+
+        text-decoration: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 14px;
+    color: #80868b;
+    padding: 3px 10px;
+    min-height: 48px;
+    font-weight: 400;
+    line-height: 20px;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    position: relative;
+    font-family: Roboto,Noto,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    border: 1px solid #dadce0;
+    border-radius: 5px;
+    margin: 6px 0;
+    background-color:rgb(255 255 255);
 
       }
 
-      h3 {
+      #title{
         font-size: 12px;
         align-items: center;
         margin-left: 10px;
@@ -64,13 +93,13 @@ export class TvChannel extends LitElement {
 
       .dot {
         height: 25px;
-        width: 25px;
-        background-color: #3A3B3C;
-        border-radius: 50%;
-        margin: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    width: 25px;
+    background-color: rgb(128 134 140);
+    border-radius: 50%;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -94,10 +123,11 @@ export class TvChannel extends LitElement {
   render() {
     return html`
       <div class="wrapper">
+
         <span class="dot">
           <h2>${this.id}</h2>
         </span>
-        <h3>${this.title}</h3>
+        <span id = "title" >${this.title}</span>
         <slot></slot>
       </div>  
       `;
