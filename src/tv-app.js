@@ -56,54 +56,63 @@ export class TvApp extends LitElement {
           margin: 16px;
           padding: 16px;
         }
+
+        .alignContent {
+        display: flex;
+        justify-content: flex-start;
+        gap: 90px; /* Optional: adjust the gap between course topics and main content */
+      }
+
         .course-topics {
           display: flex;
     flex-direction: column;
     width: 275px;
-    max-height: 485px;
     margin-right: 1px;
     margin-top: 40px;
-    overflow: auto;
+    position: fixed;
     padding-top: 10px;
     padding-right: 5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 2px 0px 5px;
+
 }
 
-        .main {
-          padding: 16px;
+.main {
+    margin-left: 358px;
+    margin-top: 40px;
+    flex: 1 1 0%;
+    overflow-y: auto;
+    padding: 42px;
+    
+    border: 1px solid #dadce0;
+    border-radius: 5px;
+    width: calc(100% - 350px);
+    max-width: calc(100% - 350px);
+
+
+  
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to the right */
+       background-color: #f8f9fa; /* Keep the same background color */
+
+       font-size: 1.3em;
+    
+     
+  
+
+       --devsite-code-font-family: Roboto Mono, monospace;
+       --devsite-primary-font-family: Roboto, Noto Sans, Noto Sans JP,
+         Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew,
+         Noto Sans Bengali, sans-serif;
+       --devsite-h3-margin: 32px 0 16px;
+       --devsite-h4-font: 500 16px/24px var(--devsite-primary-font-family);
+      
+       font: 400 16px/24px var(--devsite-primary-font-family);
+       -webkit-font-smoothing: antialiased;
+       text-size-adjust: 100%;
+       color: #4e5256;
+       font-family: var(--devsite-primary-font-family);
+       background: #f8f9fa;
+}
+
        
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to the right */
-          background-color: #f8f9fa; /* Keep the same background color */
-
-          font-size: 1.3em;
-       
-          width: 100%;
-          margin-bottom: 10px;
-          position: relative;
-          margin-top: 40px;
-          margin-left: 15px;
-
-          --devsite-code-font-family: Roboto Mono, monospace;
-          --devsite-primary-font-family: Roboto, Noto Sans, Noto Sans JP,
-            Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew,
-            Noto Sans Bengali, sans-serif;
-          --devsite-h3-margin: 32px 0 16px;
-          --devsite-h4-font: 500 16px/24px var(--devsite-primary-font-family);
-          /* ... (rest of the styles) ... */
-
-          /* Example usage of some properties */
-          font: 400 16px/24px var(--devsite-primary-font-family);
-          -webkit-font-smoothing: antialiased;
-          text-size-adjust: 100%;
-          color: #4e5256;
-          font-family: var(--devsite-primary-font-family);
-          background: #f8f9fa;
-        }
-
-        .alignContent {
-          display: flex;
-          justify-content: space-between;
-        }
       `,
     ];
   }
