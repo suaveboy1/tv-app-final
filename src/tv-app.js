@@ -64,16 +64,16 @@ export class TvApp extends LitElement {
         gap: 90px; /* Optional: adjust the gap between course topics and main content */
       }
 
-        .course-topics {
-          display: flex;
+      .course-topics {
+        margin-left: -36px;
+    display: flex;
     flex-direction: column;
     width: 275px;
     margin-right: 1px;
-    margin-top: 40px;
+    margin-top: 25px;
     position: fixed;
-    padding-top: 10px;
+    padding-top: 8px;
     padding-right: 5px;
-
 }
 
 .main {
@@ -146,7 +146,7 @@ export class TvApp extends LitElement {
         </div>
       </div>
      
-}
+
     `;
   }
   closeDialog(e) {

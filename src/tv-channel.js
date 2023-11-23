@@ -35,57 +35,32 @@ export class TvChannel extends LitElement {
         padding: 16px; */
       }
       .wrapper {
-        /* background-color: #eeeeee;
-        width: 100%;
-        margin-bottom: 8px;
-        border-radius: 10px;
-        box-shadow: 1px 1px 5px grey;
-        margin-right: 3px;
-        margin-left: 3px;
-        margin-top: 3px;
-        height: 50px;
-        display: flex;
-        align-items: center; */
-
-        text-decoration: none;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-        -moz-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        font-size: 14px;
-        color: #80868b;
-        padding: 3px 10px;
-        min-height: 48px;
-        font-weight: 400;
-        line-height: 20px;
-        -moz-box-sizing: content-box;
-        box-sizing: content-box;
-        position: relative;
-        font-family: Roboto, Noto, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -webkit-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-        border: 1px solid #dadce0;
-        border-radius: 5px;
-        margin: 6px 0;
-        background-color: rgb(255 255 255);
-      }
-
-      #title {
-        font-size: 12px;
-        align-items: center;
-        margin-left: 10px;
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-right: 10px;
-        font-weight: normal;
-      }
+    /* font-size: larger; */
+    text-decoration: none;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    /* font-size: 100px; */
+    color: rgb(128, 134, 139);
+    min-height: 52px;
+    font-weight: bold;
+    line-height: 20px;
+    box-sizing: content-box;
+    position: relative;
+    font-family: Roboto, Noto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: all 0.3s ease-in-out 0s;
+    border: 1px solid rgb(218, 220, 224);
+    border-radius: 5px;
+    margin: 4px 17px;
+    background-color: rgb(255, 255, 255);
+}
+#title {
+    font-size: 14px;
+    align-items: center;
+    margin: auto -2px;
+    font-weight: normal;
+}
 
       h2 {
         font-size: 15px;
@@ -130,18 +105,23 @@ export class TvChannel extends LitElement {
     `;
   }
   updated(changedProperties) {
+    // Course progression 
     if (changedProperties.has('activeIndex') && this.activeIndex !== null) {
       const dot = this.shadowRoot.querySelector('.dot');
       const id = this.shadowRoot.querySelector('#title');
-      if (parseInt(this.id) - 1 <= this.activeIndex) {
-        dot.style.backgroundColor = '#1a73e8'; // Color for the active channel and previous ones
-        id.style.fontWeight = 'bold';
-        id.style.color = 'black'
-
+  
+      if (parseInt(this.id) - 1 === this.activeIndex) {
+        id.style.fontWeight = 'bold'; 
       } else {
-        dot.style.backgroundColor = 'rgb(128, 134, 140)'; // Reset color for other channels
-        id.style.fontWeight = 'normal';
-        id.style.color = ''
+        id.style.fontWeight = 'normal'; 
+      }
+  
+      if (parseInt(this.id) - 1 <= this.activeIndex) {
+        dot.style.backgroundColor = '#1a73e8'; 
+        id.style.color = 'black'; 
+      } else {
+        dot.style.backgroundColor = 'rgb(128, 134, 140)'; 
+        id.style.color = ''; 
       }
     }
   }
