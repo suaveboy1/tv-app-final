@@ -1,26 +1,31 @@
 // import stuff
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from "lit";
 
 export class TvChannel extends LitElement {
   // defaults
   constructor() {
     super();
-    this.title = '';
-    this.presenter = '';
-    this.id = '';
+    this.title = "";
+    this.presenter = "";
+    this.id = "";
+    
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
-    return 'tv-channel';
+    return "tv-channel";
   }
   // LitElement convention so we update render() when values change
   static get properties() {
     return {
       title: { type: String },
       presenter: { type: String },
-      id: { type: String }
+      id: { type: String },
+      activeIndex: { type: Number },
+      activeId: { type: String }
+      
     };
   }
+
   // LitElement convention for applying styles JUST to our element
   static get styles() {
     return css`
@@ -28,7 +33,6 @@ export class TvChannel extends LitElement {
         display: block;
         /* margin: 16px;
         padding: 16px; */
-        
       }
       .wrapper {
         /* background-color: #eeeeee;
@@ -44,37 +48,36 @@ export class TvChannel extends LitElement {
         align-items: center; */
 
         text-decoration: none;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -moz-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    font-size: 14px;
-    color: #80868b;
-    padding: 3px 10px;
-    min-height: 48px;
-    font-weight: 400;
-    line-height: 20px;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    position: relative;
-    font-family: Roboto,Noto,sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -webkit-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
-    border: 1px solid #dadce0;
-    border-radius: 5px;
-    margin: 6px 0;
-    background-color:rgb(255 255 255);
-
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -moz-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        font-size: 14px;
+        color: #80868b;
+        padding: 3px 10px;
+        min-height: 48px;
+        font-weight: 400;
+        line-height: 20px;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        position: relative;
+        font-family: Roboto, Noto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        border: 1px solid #dadce0;
+        border-radius: 5px;
+        margin: 6px 0;
+        background-color: rgb(255 255 255);
       }
 
-      #title{
+      #title {
         font-size: 12px;
         align-items: center;
         margin-left: 10px;
@@ -96,15 +99,19 @@ export class TvChannel extends LitElement {
 
       .dot {
         height: 25px;
-    width: 25px;
-    background-color: rgb(128 134 140);
-    border-radius: 50%;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        width: 25px;
+        background-color: rgb(128 134 140);
+        border-radius: 50%;
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       
+      }
 
+      .wrapper:active {
+        background-color : #1a73e8;
+      }
 
       @media (min-width: 800px) {
         /* h3{
@@ -115,29 +122,56 @@ export class TvChannel extends LitElement {
           font-size: 15px;
         } */
 
-      /* .wrapper{
+        /* .wrapper{
         max-width: auto;
         max-height: auto;
       } */
       }
     `;
   }
+  updated(changedProperties) {
+    if (changedProperties.has('activeIndex') && this.activeIndex !== null) {
+      const dot = this.shadowRoot.querySelector('.dot');
+      const id = this.shadowRoot.querySelector('#title');
+      if (parseInt(this.id) - 1 <= this.activeIndex) {
+        dot.style.backgroundColor = '#1a73e8'; // Color for the active channel and previous ones
+        id.style.fontWeight = 'bold';
+        id.style.color = 'black'
+
+      } else {
+        dot.style.backgroundColor = 'rgb(128, 134, 140)'; // Reset color for other channels
+        id.style.fontWeight = 'normal';
+        id.style.color = ''
+      }
+    }
+  }
+  
+
   // LitElement rendering template of your element
   render() {
     return html`
-      <div class="wrapper">
-
+       <div class="wrapper">
         <span class="dot">
           <h2>${this.id}</h2>
         </span>
-        <span id = "title" >${this.title}</span>
+        <span id="title">${this.title}</span>
         <slot></slot>
-      </div>  
-      `;
+      </div>
+    `;
   }
+
+ 
+
 }
+
+
+
 // tell the browser about our tag and class it should run when it sees it
 customElements.define(TvChannel.tag, TvChannel);
+
+
+
+
 
 //         <h4>${this.presenter}</h4>
 

@@ -45,6 +45,7 @@ export class TvApp extends LitElement {
       id: { type: String },
       activeIndex: { type: Number },
       activeContent: { type: String },
+      
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -128,6 +129,7 @@ export class TvApp extends LitElement {
                 presenter="${item.metadata.author}"
                 id="${item.id}"
                 @click="${() => this.itemClick(index)}"
+                activeIndex="${this.activeIndex}"
               >
               </tv-channel>
             `,
@@ -139,9 +141,12 @@ export class TvApp extends LitElement {
           <div>
             <button @click=${() => this.prevPage()}>PREV</button>
             <button @click=${() => this.nextPage()}>NEXT</button>
+            
           </div>
         </div>
       </div>
+     
+}
     `;
   }
   closeDialog(e) {
@@ -149,6 +154,16 @@ export class TvApp extends LitElement {
     dialog.hide();
   }
 
+  // async progressionBar(activeIndex) { 
+  //   console.log("Progress", progress)
+  //   const progressValue = this.shadowRoot.querySelector(".progress-value");
+  //   const progressText = this.shadowRoot.querySelector(".progress-text");
+
+  //   progressValue.style.width = `${(activeIndex + 1) * 10}%`;
+  //   progressText.innerHTML = `${activeIndex + 1} / ${this.listings.length}`;
+
+  // }
+  
   async nextPage() {
     if (this.activeIndex !== null) {
       const nextIndex = (this.activeIndex + 1) % this.listings.length;
@@ -159,12 +174,13 @@ export class TvApp extends LitElement {
       try {
         const response = await fetch(contentPath);
         this.activeContent = await response.text();
-        console.log("Active Content", this.activeContent);
+        // console.log("Active Content", this.activeContent);
         this.activeIndex = nextIndex; // Update the active index after fetching content
       } catch (err) {
         console.log("fetch failed", err);
       }
     }
+    
   }
 
   async prevPage() {
@@ -180,7 +196,7 @@ export class TvApp extends LitElement {
       try {
         const response = await fetch(contentPath);
         this.activeContent = await response.text();
-        console.log("Active Content", this.activeContent);
+        // console.log("Active Content", this.activeContent);
         this.activeIndex = prevIndex; // Update the active index after fetching content
       } catch (err) {
         console.log("fetch failed", err);
@@ -191,19 +207,20 @@ export class TvApp extends LitElement {
   async itemClick(index) {
     this.activeIndex = index;
     const item = this.listings[index].location;
-    console.log("Active Content", item);
+    // console.log("Active Content", item);
 
     const contentPath = "/assets/" + item;
-    console.log("Content Path", contentPath);
+    // console.log("Content Path", contentPath);
 
     try {
       const response = await fetch(contentPath);
       const text = await response.text();
       this.activeContent = text;
-      console.log("Active Content", this.activeContent);
+      // console.log("Active Content", this.activeContent);
     } catch (err) {
       console.log("fetch failed", err);
     }
+    
 
     // const dialog = this.shadowRoot.querySelector('.dialog');
     // dialog.show();
