@@ -45,7 +45,6 @@ export class TvApp extends LitElement {
       id: { type: String },
       activeIndex: { type: Number },
       activeContent: { type: String },
-      
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -59,61 +58,108 @@ export class TvApp extends LitElement {
         }
 
         .alignContent {
-        display: flex;
-        justify-content: flex-start;
-        gap: 90px; /* Optional: adjust the gap between course topics and main content */
-      }
+          display: flex;
+          justify-content: flex-start;
+          gap: 90px; /* Optional: adjust the gap between course topics and main content */
+        }
 
-      .course-topics {
-        margin-left: -36px;
-    display: flex;
-    flex-direction: column;
-    width: 275px;
-    margin-right: 1px;
-    margin-top: 25px;
-    position: fixed;
-    padding-top: 8px;
-    padding-right: 5px;
-}
+        .course-topics {
+          margin-left: -36px;
+          display: flex;
+          flex-direction: column;
+          width: 275px;
+          margin-right: 1px;
+          margin-top: 25px;
+          position: fixed;
+          padding-top: 8px;
+          padding-right: 5px;
+        }
 
-.main {
-    margin-left: 358px;
-    margin-top: 40px;
-    flex: 1 1 0%;
-    overflow-y: auto;
-    padding: 42px;
-    
-    border: 1px solid #dadce0;
-    border-radius: 5px;
-    width: calc(100% - 350px);
-    max-width: calc(100% - 350px);
+        .main {
+          margin-left: 358px;
+          margin-top: 40px;
+          flex: 1 1 0%;
+          overflow-y: auto;
+          padding: 42px;
 
+          border: 1px solid #dadce0;
+          border-radius: 5px;
+          width: calc(100% - 350px);
+          max-width: calc(100% - 350px);
 
-  
-       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to the right */
-       background-color: #f8f9fa; /* Keep the same background color */
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to the right */
+          background-color: #f8f9fa; /* Keep the same background color */
 
-       font-size: 1.3em;
-    
-     
-  
+          font-size: 1.3em;
 
-       --devsite-code-font-family: Roboto Mono, monospace;
-       --devsite-primary-font-family: Roboto, Noto Sans, Noto Sans JP,
-         Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew,
-         Noto Sans Bengali, sans-serif;
-       --devsite-h3-margin: 32px 0 16px;
-       --devsite-h4-font: 500 16px/24px var(--devsite-primary-font-family);
-      
-       font: 400 16px/24px var(--devsite-primary-font-family);
-       -webkit-font-smoothing: antialiased;
-       text-size-adjust: 100%;
-       color: #4e5256;
-       font-family: var(--devsite-primary-font-family);
-       background: #f8f9fa;
-}
+          --devsite-code-font-family: Roboto Mono, monospace;
+          --devsite-primary-font-family: Roboto, Noto Sans, Noto Sans JP,
+            Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew,
+            Noto Sans Bengali, sans-serif;
+          --devsite-h3-margin: 32px 0 16px;
+          --devsite-h4-font: 500 16px/24px var(--devsite-primary-font-family);
 
-       
+          font: 400 16px/24px var(--devsite-primary-font-family);
+          -webkit-font-smoothing: antialiased;
+          text-size-adjust: 100%;
+          color: #4e5256;
+          font-family: var(--devsite-primary-font-family);
+          background: #f8f9fa;
+        }
+
+        .fabs {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          position: fixed;
+          bottom: 0;
+          right: 0;
+          margin: 19px;
+          width: 75vw;
+        }
+
+        #previous>button {
+          border-radius: 4px;
+          font-family:
+            Google Sans,
+            Arial,
+            sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.6px;
+          line-height: 24px;
+          padding-bottom: 6px;
+          padding-left: 24px;
+          padding-right: 24px;
+          padding-top: 6px;
+          pointer-events: auto;
+          text-transform: none;
+          background: #fff;
+          color: #1a73e8;
+          border: 0;
+          box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+        }
+        #next>button {
+          border-radius: 4px;
+          font-family:
+            Google Sans,
+            Arial,
+            sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.6px;
+          line-height: 24px;
+          padding-bottom: 6px;
+          padding-left: 24px;
+          padding-right: 24px;
+          padding-top: 6px;
+          pointer-events: auto;
+          text-transform: none;
+          background: #1a73e8;
+          color: #fff;
+          border: 0;
+          box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+        }
       `,
     ];
   }
@@ -138,15 +184,16 @@ export class TvApp extends LitElement {
 
         <div class="main">
           ${this.activeContent ? unsafeHTML(this.activeContent) : html``}
-          <div>
-            <button @click=${() => this.prevPage()}>PREV</button>
-            <button @click=${() => this.nextPage()}>NEXT</button>
-            
+        </div>
+        <div class="fabs">
+          <div id="previous">
+            <button @click=${() => this.prevPage()}>Back</button>
+          </div>
+          <div id="next">
+            <button @click=${() => this.nextPage()}>Next</button>
           </div>
         </div>
       </div>
-     
-
     `;
   }
   closeDialog(e) {
@@ -154,7 +201,7 @@ export class TvApp extends LitElement {
     dialog.hide();
   }
 
-  // async progressionBar(activeIndex) { 
+  // async progressionBar(activeIndex) {
   //   console.log("Progress", progress)
   //   const progressValue = this.shadowRoot.querySelector(".progress-value");
   //   const progressText = this.shadowRoot.querySelector(".progress-text");
@@ -163,7 +210,7 @@ export class TvApp extends LitElement {
   //   progressText.innerHTML = `${activeIndex + 1} / ${this.listings.length}`;
 
   // }
-  
+
   async nextPage() {
     if (this.activeIndex !== null) {
       const nextIndex = (this.activeIndex + 1) % this.listings.length;
@@ -180,7 +227,6 @@ export class TvApp extends LitElement {
         console.log("fetch failed", err);
       }
     }
-    
   }
 
   async prevPage() {
@@ -220,7 +266,6 @@ export class TvApp extends LitElement {
     } catch (err) {
       console.log("fetch failed", err);
     }
-    
 
     // const dialog = this.shadowRoot.querySelector('.dialog');
     // dialog.show();
