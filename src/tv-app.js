@@ -75,37 +75,27 @@ export class TvApp extends LitElement {
           padding-right: 5px;
         }
 
-        .main {
-          margin-left: 358px;
-          margin-top: 40px;
-          flex: 1 1 0%;
-          overflow-y: auto;
-          padding: 42px;
-
-          border: 1px solid #dadce0;
+       .main {
+        margin: 42px 141px 23px 386px;
+         padding-top: 8px;
+         padding-right: 5px;
+         padding-bottom: 1px;
+         padding-left: 20px;
+         width: calc(100% - 291px);
+         height: 100%;
+         font-size: 1em;
+         border: 1px solid #dadce0;
           border-radius: 5px;
-          width: calc(100% - 350px);
-          max-width: calc(100% - 350px);
-
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to the right */
           background-color: #f8f9fa; /* Keep the same background color */
-
-          font-size: 1.3em;
-
-          --devsite-code-font-family: Roboto Mono, monospace;
-          --devsite-primary-font-family: Roboto, Noto Sans, Noto Sans JP,
-            Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew,
-            Noto Sans Bengali, sans-serif;
-          --devsite-h3-margin: 32px 0 16px;
-          --devsite-h4-font: 500 16px/24px var(--devsite-primary-font-family);
-
           font: 400 16px/24px var(--devsite-primary-font-family);
           -webkit-font-smoothing: antialiased;
           text-size-adjust: 100%;
           color: #4e5256;
           font-family: var(--devsite-primary-font-family);
           background: #f8f9fa;
-        }
+
+       }
 
         .fabs {
           display: flex;
