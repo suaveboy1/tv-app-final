@@ -60,7 +60,7 @@ export class TvApp extends LitElement {
         .alignContent {
           display: flex;
           justify-content: flex-start;
-          gap: 90px; /* Optional: adjust the gap between course topics and main content */
+          gap: 90px; 
         }
 
         .course-topics {
@@ -105,7 +105,7 @@ export class TvApp extends LitElement {
           bottom: 0;
           right: 0;
           margin: 19px;
-          width: 75vw;
+          width: 81vw;
         }
 
         #previous>button {
@@ -191,15 +191,6 @@ export class TvApp extends LitElement {
     dialog.hide();
   }
 
-  // async progressionBar(activeIndex) {
-  //   console.log("Progress", progress)
-  //   const progressValue = this.shadowRoot.querySelector(".progress-value");
-  //   const progressText = this.shadowRoot.querySelector(".progress-text");
-
-  //   progressValue.style.width = `${(activeIndex + 1) * 10}%`;
-  //   progressText.innerHTML = `${activeIndex + 1} / ${this.listings.length}`;
-
-  // }
 
   async nextPage() {
     if (this.activeIndex !== null) {
@@ -211,8 +202,8 @@ export class TvApp extends LitElement {
       try {
         const response = await fetch(contentPath);
         this.activeContent = await response.text();
-        // console.log("Active Content", this.activeContent);
-        this.activeIndex = nextIndex; // Update the active index after fetching content
+    
+        this.activeIndex = nextIndex; 
       } catch (err) {
         console.log("fetch failed", err);
       }
@@ -232,8 +223,8 @@ export class TvApp extends LitElement {
       try {
         const response = await fetch(contentPath);
         this.activeContent = await response.text();
-        // console.log("Active Content", this.activeContent);
-        this.activeIndex = prevIndex; // Update the active index after fetching content
+  
+        this.activeIndex = prevIndex;
       } catch (err) {
         console.log("fetch failed", err);
       }
@@ -257,8 +248,7 @@ export class TvApp extends LitElement {
       console.log("fetch failed", err);
     }
 
-    // const dialog = this.shadowRoot.querySelector('.dialog');
-    // dialog.show();
+
   }
 
   // LitElement life cycle for when any property changes
