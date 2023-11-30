@@ -150,6 +150,15 @@ export class TvApp extends LitElement {
           border: 0;
           box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
         }
+
+  #placeholder>button {
+  border-radius: 4px;
+  visibility: hidden;
+
+}
+
+
+
       `,
     ];
   }
@@ -176,11 +185,16 @@ export class TvApp extends LitElement {
           ${this.activeContent ? unsafeHTML(this.activeContent) : html``}
         </div>
         <div class="fabs">
+        ${this.activeIndex > 0 ? html`
           <div id="previous">
             <button @click=${() => this.prevPage()}>Back</button>
           </div>
-          <div id="next">
+         ` : html`<div id="placeholder" style="visibility: hidden;"><button>Back</button></div>`}
+            ${this.activeIndex < this.listings.length - 1 ? html`
+            <div id="next">
             <button @click=${() => this.nextPage()}>Next</button>
+          </div>
+        ` : ''}
           </div>
         </div>
       </div>
