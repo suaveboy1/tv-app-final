@@ -194,39 +194,42 @@ export class TvApp extends LitElement {
 
   async nextPage() {
     if (this.activeIndex !== null) {
-      const nextIndex = (this.activeIndex + 1) % this.listings.length;
-      const item = this.listings[nextIndex].location;
-
-      const contentPath = "/assets/" + item;
-
-      try {
-        const response = await fetch(contentPath);
-        this.activeContent = await response.text();
-    
-        this.activeIndex = nextIndex; 
-      } catch (err) {
-        console.log("fetch failed", err);
+      // Check if the current index is the last item
+      if (this.activeIndex < this.listings.length - 1) {
+        const nextIndex = this.activeIndex + 1;
+        const item = this.listings[nextIndex].location;
+  
+        const contentPath = "/assets/" + item;
+  
+        try {
+          const response = await fetch(contentPath);
+          this.activeContent = await response.text();
+      
+          this.activeIndex = nextIndex; 
+        } catch (err) {
+          console.log("fetch failed", err);
+        }
       }
     }
   }
 
   async prevPage() {
     if (this.activeIndex !== null) {
-      const prevIndex =
-        this.activeIndex === 0
-          ? this.listings.length - 1
-          : this.activeIndex - 1;
-      const item = this.listings[prevIndex].location;
-
-      const contentPath = "/assets/" + item;
-
-      try {
-        const response = await fetch(contentPath);
-        this.activeContent = await response.text();
+      // Check if the current index is not the first item
+      if (this.activeIndex > 0) {
+        const prevIndex = this.activeIndex - 1;
+        const item = this.listings[prevIndex].location;
   
-        this.activeIndex = prevIndex;
-      } catch (err) {
-        console.log("fetch failed", err);
+        const contentPath = "/assets/" + item;
+  
+        try {
+          const response = await fetch(contentPath);
+          this.activeContent = await response.text();
+    
+          this.activeIndex = prevIndex;
+        } catch (err) {
+          console.log("fetch failed", err);
+        }
       }
     }
   }
