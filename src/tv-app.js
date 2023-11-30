@@ -25,9 +25,12 @@ export class TvApp extends LitElement {
     super.connectedCallback();
 
     this.contents.forEach((_, index) => {
-      this.loadContent(index);
+    this.loadContent(index);
+   
     });
   }
+
+
 
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -189,7 +192,7 @@ export class TvApp extends LitElement {
           <div id="previous">
             <button @click=${() => this.prevPage()}>Back</button>
           </div>
-         ` : html`<div id="placeholder" style="visibility: hidden;"><button>Back</button></div>`}
+         ` : html`<div id="placeholder" style="visibility: hidden;"><button>Back</button></div>`} 
             ${this.activeIndex < this.listings.length - 1 ? html`
             <div id="next">
             <button @click=${() => this.nextPage()}>Next</button>
@@ -279,6 +282,13 @@ export class TvApp extends LitElement {
       }
     });
   }
+
+  
+
+
+
+
+
 
   async updateSourceData(source) {
     await fetch(source)
