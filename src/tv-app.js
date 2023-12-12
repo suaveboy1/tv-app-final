@@ -3,10 +3,10 @@ import { LitElement, html, css } from "lit";
 import "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
 import "@shoelace-style/shoelace/dist/components/button/button.js";
 import "./tv-channel.js";
-import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import { unsafeHTML } from "lit/directives/unsafe-html.js"; //I did not know how to do the <slot></slot> so I kept this because at least this works 
 
 export class TvApp extends LitElement {
-  // defaults
+ 
   constructor() {
     super();
     this.name = "";
